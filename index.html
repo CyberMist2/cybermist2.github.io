@@ -32,38 +32,69 @@
       border-color: #ff5500;
       color: #ff5500;
     }
+
+    #playBtn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: #222;
+      color: #fff;
+      border: 1px solid #fff;
+      font-family: Oswald;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    #playBtn:hover {
+      background: #444;
+      border-color: #ff5500;
+      color: #ff5500;
+    }
   </style>
-  <script>
-  window.addEventListener('load', () => {
-    setTimeout(() => {
-      const audio = document.getElementById('bgm');
-      const playPromise = audio.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(e => {
-          console.log("Autoplay blocked.");
-        });
-      }
-    }, 500); // wait for possible interaction
-  });
-</script>
 </head>
 <body>
   <div class="container">
     <div class="glitch" data-text="CYBERMIST2">CYBERMIST2</div>
     <div class="glow">CYBERMIST2</div>
     <p class="subtitle">C# ~ PHP ~ SQL ~ JS ~ HTML</p>
-    
+
     <div class="button-container">
+      <a href="#" id="playBtn">Play Music</a>
       <a href="https://discord.com/users/979687957663465482" target="_blank">Discord /me</a>
       <a href="mailto:cybermist2@gmail.com">Email</a>
     </div>
+    <!-- <button id="playBtn">Play Music</button> -->
   </div>
+
   <div class="scanlines"></div>
-<button onclick="document.getElementById('bgm').play()" style="margin-top:20px;padding:10px 20px;background:#222;color:#fff;border:1px solid #fff;font-family:Oswald;">Play Music</button>
 
-<audio id="bgm" loop autoplay>
-  <source src="audio/dystopia-2077.mp3" type="audio/mpeg">
-</audio>
+  <audio id="bgm" loop>
+    <source src="audio/dystopia-2077.mp3" type="audio/mpeg">
+  </audio>
 
+  <script>
+    function fadeInAudio(audio, duration = 1000) {
+      audio.volume = 0;
+      const step = 100;
+      const increment = step / duration;
+      const fade = setInterval(() => {
+        if (audio.volume < 0.1) {
+          audio.volume = Math.min(audio.volume + increment, 1);
+        } else {
+          clearInterval(fade);
+        }
+      }, step);
+    }
+
+    document.getElementById('playBtn').addEventListener('click', () => {
+      const audio = document.getElementById('bgm');
+      audio.currentTime = 12;
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => fadeInAudio(audio, 1000))
+          .catch(e => console.log("Autoplay blocked or failed:", e));
+      }
+    });
+  </script>
 </body>
 </html>
