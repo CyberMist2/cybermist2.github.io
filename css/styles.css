@@ -9,6 +9,7 @@ body {
   transform: translate(-50%, -50%);
   top: 40%;
   left: 50%;
+  z-index: 1;
 }
 
 .glitch, .glow {
@@ -241,6 +242,8 @@ body {
 .scanlines {
   overflow: hidden;
   mix-blend-mode: difference;
+  position: absolute;
+  z-index: -1;
 }
 
 .scanlines::before {
