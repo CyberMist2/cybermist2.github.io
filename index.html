@@ -71,30 +71,33 @@
     <source src="audio/dystopia-2077.mp3" type="audio/mpeg">
   </audio>
 
-  <script>
-    function fadeInAudio(audio, duration = 1000) {
-      audio.volume = 0;
-      const step = 100;
-      const increment = step / duration;
-      const fade = setInterval(() => {
-        if (audio.volume < 0.1) {
-          audio.volume = Math.min(audio.volume + increment, 1);
-        } else {
-          clearInterval(fade);
-        }
-      }, step);
-    }
+<script>
+  function fadeInAudio(audio, duration = 3000, targetVolume = 0.1) {
+    audio.volume = 0;
+    const step = 100; // ms
+    const steps = duration / step;
+    const increment = targetVolume / steps;
 
-    document.getElementById('playBtn').addEventListener('click', () => {
-      const audio = document.getElementById('bgm');
-      audio.currentTime = 12;
-      const playPromise = audio.play();
-      if (playPromise !== undefined) {
-        playPromise
-          .then(() => fadeInAudio(audio, 1000))
-          .catch(e => console.log("Autoplay blocked or failed:", e));
+    const fade = setInterval(() => {
+      if (audio.volume < targetVolume) {
+        audio.volume = Math.min(audio.volume + increment, targetVolume);
+      } else {
+        clearInterval(fade);
       }
-    });
-  </script>
+    }, step);
+  }
+
+  document.getElementById('playBtn').addEventListener('click', () => {
+    const audio = document.getElementById('bgm');
+    audio.currentTime = 13;
+    const playPromise = audio.play();
+    if (playPromise !== undefined) {
+      playPromise
+        .then(() => fadeInAudio(audio, 3000, 0.1))
+        .catch(e => console.log("Autoplay blocked or failed:", e));
+    }
+  });
+</script>
+
 </body>
 </html>
