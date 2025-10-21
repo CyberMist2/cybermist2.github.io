@@ -2,6 +2,31 @@ body {
   background: black;
   font-family: "Oswald", sans-serif;
   font-style: italic;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+/* Video Background */
+#bgVideo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+}
+
+/* Dark Overlay */
+.video-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: -1;
 }
 
 .container {
@@ -9,7 +34,7 @@ body {
   transform: translate(-50%, -50%);
   top: 40%;
   left: 50%;
-  z-index: 1;
+  z-index: 10;
 }
 
 .glitch, .glow {
@@ -24,7 +49,7 @@ body {
   position: absolute;
   left: -2px;
   text-shadow: -5px 0 orange;
-  background: black;
+  background: transparent;
   overflow: hidden;
   top: 0;
   animation: noise-1 3s linear infinite alternate-reverse, glitch 5s 5.05s infinite;
@@ -35,7 +60,7 @@ body {
   position: absolute;
   left: 2px;
   text-shadow: -5px 0 red;
-  background: black;
+  background: transparent;
   overflow: hidden;
   top: 0;
   animation: noise-2 3s linear infinite alternate-reverse, glitch 5s 5s infinite;
@@ -243,7 +268,7 @@ body {
   overflow: hidden;
   mix-blend-mode: difference;
   position: absolute;
-  z-index: -1;
+  z-index: 5;
 }
 
 .scanlines::before {
